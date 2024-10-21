@@ -1,4 +1,5 @@
 import 'package:basic_flutter/core/theme/app_pallete.dart';
+import 'package:basic_flutter/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
@@ -13,7 +14,9 @@ class AuthButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 14),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)))),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, HomePage.route());
+        },
         child: const Text(
           "Sign In",
           style: TextStyle(
