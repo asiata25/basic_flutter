@@ -1,3 +1,4 @@
+import 'package:basic_flutter/core/theme/app_theme.dart';
 import 'package:basic_flutter/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      debugShowCheckedModeBanner: false,
+      title: 'Book Movie',
+      theme: AppTheme.defaultThemeMode,
       home: const LoginPage(),
     );
   }

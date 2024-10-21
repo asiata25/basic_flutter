@@ -1,3 +1,8 @@
+import 'package:basic_flutter/core/theme/app_pallete.dart';
+import 'package:basic_flutter/features/auth/presentation/widgets/app_login_button.dart';
+import 'package:basic_flutter/features/auth/presentation/widgets/auth_button.dart';
+import 'package:basic_flutter/features/auth/presentation/widgets/auth_field.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -11,16 +16,16 @@ class LoginPage extends StatelessWidget {
     TextEditingController tePasswordController = TextEditingController();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   height: 200,
-                  margin: const EdgeInsets.only(top: 24),
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       image: DecorationImage(
@@ -44,51 +49,19 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                const Text(
-                  "Email",
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextField(
-                  controller: teEmailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                      fillColor: Colors.grey.shade200,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: Colors.grey.shade400)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: Colors.blue.shade600)),
-                      hintText: "example@email.com",
-                      hintStyle: TextStyle(color: Colors.grey.shade400)),
+                AuthField(
+                  hintText: "example@email.com",
+                  labelText: "Email",
+                  teController: teEmailController,
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                const Text(
-                  "Password",
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextField(
+                AuthField(
+                  hintText: "at least 8 characters",
+                  labelText: "Password",
+                  teController: tePasswordController,
                   obscureText: true,
-                  controller: tePasswordController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                      fillColor: Colors.grey.shade200,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: Colors.grey.shade400)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: Colors.blue.shade600)),
-                      hintText: "at least 8 characters",
-                      hintStyle: TextStyle(color: Colors.grey.shade400)),
                 ),
                 const SizedBox(
                   height: 16,
@@ -104,7 +77,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     child: const Text("Forgot Password?",
                         style: TextStyle(
-                            color: Colors.indigo,
+                            color: AppPallete.mainColor,
                             fontWeight: FontWeight.w400,
                             fontSize: 14)),
                   ),
@@ -112,26 +85,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                SizedBox(
-                    width: width,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff162d3a),
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)))),
-                        onPressed: () {
-                          print(teEmailController.text);
-                          print(tePasswordController.text);
-                        },
-                        child: const Text(
-                          "Sign In",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400),
-                        ))),
+                SizedBox(width: width, child: const AuthButton()),
                 const SizedBox(
                   height: 42,
                 ),
@@ -153,7 +107,59 @@ class LoginPage extends StatelessWidget {
                       color: Colors.grey.shade400,
                     )),
                   ],
-                )
+                ),
+                const SizedBox(
+                  height: 26,
+                ),
+                Row(
+                  children: [
+                    AppLoginButton(
+                      imageIcon: const AssetImage("assets/images/google.png"),
+                      textButton: "Google",
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    AppLoginButton(
+                      imageIcon: const AssetImage("assets/images/facebook.png"),
+                      textButton: "Facebook",
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              text: "Don't you have an account? ",
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 16),
+                              children: [
+                            TextSpan(
+                                text: "Sign Up",
+                                style: const TextStyle(
+                                    color: AppPallete.mainColor),
+                                // FIXME: beside use gesture detectore within row
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    print("Sign Up");
+                                  }),
+                          ])),
+                      const SizedBox(
+                        height: 27,
+                      ),
+                      const Text(
+                        "© 2023 ALL RIGHTS RESERVED",
+                        style:
+                            TextStyle(fontSize: 14, color: AppPallete.grey300),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
