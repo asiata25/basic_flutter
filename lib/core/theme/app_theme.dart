@@ -2,13 +2,16 @@ import 'package:basic_flutter/core/theme/app_pallete.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // FIXME: usage of const and final
   static _border([Color color = AppPallete.grey200]) => OutlineInputBorder(
       borderRadius: const BorderRadius.all(Radius.circular(8)),
       borderSide: BorderSide(color: color, width: 1));
 
   static final defaultThemeMode = ThemeData(
+      fontFamily: "Mulish",
       scaffoldBackgroundColor: Colors.white,
+      appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          foregroundColor: AppPallete.mainColor),
       inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: AppPallete.grey100,

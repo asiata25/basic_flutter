@@ -2,10 +2,10 @@ import 'package:basic_flutter/core/theme/app_pallete.dart';
 import 'package:flutter/material.dart';
 
 class AppLoginButton extends StatelessWidget {
-  String textButton;
-  ImageProvider imageIcon;
+  final String textButton;
+  final ImageProvider imageIcon;
 
-  AppLoginButton(
+  const AppLoginButton(
       {super.key, required this.textButton, required this.imageIcon});
 
   @override

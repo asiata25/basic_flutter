@@ -1,19 +1,20 @@
 import 'package:basic_flutter/core/theme/app_pallete.dart';
-import 'package:basic_flutter/features/auth/presentation/pages/signup_page.dart';
 import 'package:basic_flutter/features/auth/presentation/widgets/app_login_button.dart';
 import 'package:basic_flutter/features/auth/presentation/widgets/auth_button.dart';
 import 'package:basic_flutter/features/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class SignupPage extends StatelessWidget {
   static route() => MaterialPageRoute(
-        builder: (context) => LoginPage(),
+        builder: (context) => SignupPage(),
       );
 
-  LoginPage({super.key});
+  SignupPage({super.key});
   final TextEditingController teEmailController = TextEditingController();
   final TextEditingController tePasswordController = TextEditingController();
+  final TextEditingController tePasswordConfirmController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -40,14 +42,14 @@ class LoginPage extends StatelessWidget {
                   height: 27,
                 ),
                 const Text(
-                  "Welcome Back  👋",
+                  "Hi, Join now and Enjoy",
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 const Text(
-                  "Today is a new day. It's your day. You shape it. Log in to start streaming a movie",
+                  "Today is a new day. It's your day. You shape it. Sign up to start streaming a movie",
                   style: TextStyle(fontSize: 15),
                 ),
                 const SizedBox(
@@ -65,6 +67,15 @@ class LoginPage extends StatelessWidget {
                   hintText: "at least 8 characters",
                   labelText: "Password",
                   teController: tePasswordController,
+                  obscureText: true,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                AuthField(
+                  hintText: "input your password again",
+                  labelText: "Confirm Password",
+                  teController: tePasswordConfirmController,
                   obscureText: true,
                 ),
                 const SizedBox(
@@ -149,17 +160,17 @@ class LoginPage extends StatelessWidget {
                     children: [
                       RichText(
                           text: TextSpan(
-                              text: "Don't you have an account? ",
+                              text: "Already have an account? ",
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 16),
                               children: [
                             TextSpan(
-                                text: "Sign Up",
+                                text: "Login",
                                 style: const TextStyle(
                                     color: AppPallete.mainColor),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Navigator.push(context, SignupPage.route());
+                                    Navigator.pop(context);
                                   }),
                           ])),
                       const SizedBox(

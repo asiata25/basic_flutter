@@ -1,9 +1,11 @@
 import 'package:basic_flutter/core/theme/app_pallete.dart';
-import 'package:basic_flutter/features/home/presentation/pages/home_page.dart';
+import 'package:basic_flutter/features/movies/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({super.key});
+  final bool Function() onClick;
+
+  const AuthButton({super.key, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,9 @@ class AuthButton extends StatelessWidget {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)))),
         onPressed: () {
-          Navigator.push(context, HomePage.route());
+          if (onClick()) {
+            Navigator.pushReplacement(context, HomePage.route());
+          }
         },
         child: const Text(
           "Sign In",
