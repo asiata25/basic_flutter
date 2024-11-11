@@ -1,9 +1,13 @@
 import 'package:basic_flutter/core/theme/app_pallete.dart';
+import 'package:basic_flutter/features/auth/presentation/bloc/remote/remote_auth_bloc.dart';
+import 'package:basic_flutter/features/auth/presentation/bloc/remote/remote_auth_event.dart';
+import 'package:basic_flutter/features/auth/presentation/bloc/remote/remote_auth_state.dart';
 import 'package:basic_flutter/features/auth/presentation/widgets/app_login_button.dart';
 import 'package:basic_flutter/features/auth/presentation/widgets/auth_button.dart';
 import 'package:basic_flutter/features/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupPage extends StatelessWidget {
   static route() => MaterialPageRoute(
@@ -13,8 +17,7 @@ class SignupPage extends StatelessWidget {
   SignupPage({super.key});
   final TextEditingController teEmailController = TextEditingController();
   final TextEditingController tePasswordController = TextEditingController();
-  final TextEditingController tePasswordConfirmController =
-      TextEditingController();
+  final TextEditingController teUsernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +76,9 @@ class SignupPage extends StatelessWidget {
                   height: 16,
                 ),
                 AuthField(
-                  hintText: "input your password again",
-                  labelText: "Confirm Password",
-                  teController: tePasswordConfirmController,
-                  obscureText: true,
+                  hintText: "choose your username",
+                  labelText: "Username",
+                  teController: teUsernameController,
                 ),
                 const SizedBox(
                   height: 16,
@@ -102,14 +104,24 @@ class SignupPage extends StatelessWidget {
                 ),
                 SizedBox(
                     width: width,
-                    child: AuthButton(
-                      onClick: () {
-                        if (teEmailController.text != "" &&
-                            tePasswordController.text != "") {
-                          return true;
-                        }
-                        return false;
+                    child: BlocListener<RemoteAuthBloc, RemoteAuthState>(
+                      listener: (context, state) {
+                        // TODO: implement listener
                       },
+                      child: AuthButton(
+                        onClick: () {
+                          if (teEmailController.text.isNotEmpty &&
+                              tePasswordController.text.isNotEmpty &&
+                              teUsernameController.text.isNotEmpty) {
+                            context.read<RemoteAuthBloc>().add(AuthSignUp(
+                                email: teEmailController.text,
+                                password: tePasswordController.text,
+                                username: teUsernameController.text));
+                            return true;
+                          }
+                          return false;
+                        },
+                      ),
                     )),
                 const SizedBox(
                   height: 42,

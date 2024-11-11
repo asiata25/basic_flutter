@@ -1,14 +1,32 @@
+import 'package:basic_flutter/core/constants/constants.dart';
 import 'package:basic_flutter/core/theme/app_theme.dart';
+import 'package:basic_flutter/features/auth/data/data_source/remote/auth_remote_data_source.dart';
+import 'package:basic_flutter/features/auth/data/repository/auth_repository_impl.dart';
+import 'package:basic_flutter/features/auth/domain/usecase/user_signup.dart';
+import 'package:basic_flutter/features/auth/presentation/bloc/remote/remote_auth_bloc.dart';
 import 'package:basic_flutter/features/auth/presentation/pages/login_page.dart';
 import 'package:basic_flutter/features/movies/presentation/bloc/remote/remote_movie_bloc.dart';
 import 'package:basic_flutter/features/movies/presentation/bloc/remote/remote_movie_event.dart';
 import 'package:basic_flutter/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Supabase supabase =
+      await Supabase.initialize(anonKey: supabaseAnon, url: supabaseUrl);
   setup();
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<RemoteMovieBloc>(
+      create: (context) => locator()..add(const GetMovies()),
+    ),
+    BlocProvider(
+      create: (context) => RemoteAuthBloc(
+          userSignup: UserSignup(
+              AuthRepositoryImpl(SupabaseDataSource(supabase.client)))),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,15 +36,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // FIXME: How to implement BlocProvider when have many event
-    return BlocProvider<RemoteMovieBloc>(
-      create: (context) => locator()..add(const GetMovies()),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Book Movie',
-        theme: AppTheme.defaultThemeMode,
-        // home: LoginPage(),
-        home: LoginPage(),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Book Movie',
+      theme: AppTheme.defaultThemeMode,
+      // home: LoginPage(),
+      home: LoginPage(),
     );
   }
 }
