@@ -4,8 +4,8 @@ import 'package:basic_flutter/features/auth/data/model/user_model.dart';
 import 'package:basic_flutter/features/auth/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  AuthRemoteDataSource authRemoteDataSource;
-  AuthRepositoryImpl(this.authRemoteDataSource);
+  final AuthRemoteDataSource _authRemoteDataSource;
+  AuthRepositoryImpl(this._authRemoteDataSource);
 
   @override
   Future<DataState<UserModel>> loginWithEmail(
@@ -22,7 +22,7 @@ class AuthRepositoryImpl extends AuthRepository {
       required String email,
       required String password}) async {
     try {
-      final user = await authRemoteDataSource.signUpWithEmail(
+      final user = await _authRemoteDataSource.signUpWithEmail(
           username: username, email: email, password: password);
       if (user is DataFailed) {
         throw DataFailed(Exception('Error signup user'));

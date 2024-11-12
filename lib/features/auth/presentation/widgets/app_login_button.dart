@@ -13,7 +13,6 @@ class AppLoginButton extends StatelessWidget {
     return Expanded(
         child: GestureDetector(
       onTap: () {
-        print("Google");
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),

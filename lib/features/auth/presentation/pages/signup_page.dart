@@ -9,15 +9,31 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   static route() => MaterialPageRoute(
-        builder: (context) => SignupPage(),
+        builder: (context) => const SignupPage(),
       );
 
-  SignupPage({super.key});
+  const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   final TextEditingController teEmailController = TextEditingController();
+
   final TextEditingController tePasswordController = TextEditingController();
+
   final TextEditingController teUsernameController = TextEditingController();
+
+  @override
+  void dispose() {
+    teEmailController.dispose();
+    tePasswordController.dispose();
+    teUsernameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,17 +164,17 @@ class SignupPage extends StatelessWidget {
                 const SizedBox(
                   height: 26,
                 ),
-                Row(
+                const Row(
                   children: [
                     AppLoginButton(
-                      imageIcon: const AssetImage("assets/images/google.png"),
+                      imageIcon: AssetImage("assets/images/google.png"),
                       textButton: "Google",
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 16,
                     ),
                     AppLoginButton(
-                      imageIcon: const AssetImage("assets/images/facebook.png"),
+                      imageIcon: AssetImage("assets/images/facebook.png"),
                       textButton: "Facebook",
                     )
                   ],

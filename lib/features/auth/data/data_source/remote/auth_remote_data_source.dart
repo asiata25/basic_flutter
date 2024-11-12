@@ -14,9 +14,9 @@ abstract class AuthRemoteDataSource {
   });
 }
 
-class SupabaseDataSource extends AuthRemoteDataSource {
-  SupabaseClient _supabaseClient;
-  SupabaseDataSource(this._supabaseClient);
+class SupabaseDataSourceImpl extends AuthRemoteDataSource {
+  final SupabaseClient _supabaseClient;
+  SupabaseDataSourceImpl(this._supabaseClient);
 
   @override
   Future<DataState<UserModel>> loginWithEmail(

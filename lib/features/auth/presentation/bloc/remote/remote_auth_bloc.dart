@@ -1,8 +1,7 @@
 import 'package:basic_flutter/core/resources/data_state.dart';
-import 'package:basic_flutter/features/auth/domain/usecase/user_signup.dart';
+import 'package:basic_flutter/features/auth/domain/usecases/user_signup.dart';
 import 'package:basic_flutter/features/auth/presentation/bloc/remote/remote_auth_event.dart';
 import 'package:basic_flutter/features/auth/presentation/bloc/remote/remote_auth_state.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {

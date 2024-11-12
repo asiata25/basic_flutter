@@ -1,4 +1,4 @@
-import 'package:basic_flutter/core/common/entities/user.dart';
+import 'package:basic_flutter/core/common/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -9,7 +9,7 @@ sealed class RemoteAuthState {
 class AuthStateLoading extends RemoteAuthState {}
 
 class AuthStateDone extends RemoteAuthState {
-  final User user;
+  final UserEntity user;
   const AuthStateDone(this.user);
 }
 

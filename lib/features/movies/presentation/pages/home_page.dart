@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(top: 16, bottom: 30),
               child: BlocBuilder<RemoteMovieBloc, RemoteMovieState>(
                 builder: (context, state) {
-                  // FIXME: How to return a widget base on state Bloc
                   Widget upcomingList = const CircularProgressIndicator(
                     backgroundColor: AppPallete.grey100,
                     strokeWidth: 2,

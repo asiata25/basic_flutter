@@ -6,14 +6,27 @@ import 'package:basic_flutter/features/auth/presentation/widgets/auth_field.dart
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   static route() => MaterialPageRoute(
-        builder: (context) => LoginPage(),
+        builder: (context) => const LoginPage(),
       );
 
-  LoginPage({super.key});
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController teEmailController = TextEditingController();
   final TextEditingController tePasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    teEmailController.dispose();
+    tePasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +106,8 @@ class LoginPage extends StatelessWidget {
                     width: width,
                     child: AuthButton(
                       onClick: () {
-                        if (teEmailController.text != "" &&
-                            tePasswordController.text != "") {
+                        if (teEmailController.text.isNotEmpty &&
+                            tePasswordController.text.isNotEmpty) {
                           return true;
                         }
                         return false;
@@ -125,17 +138,17 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 26,
                 ),
-                Row(
+                const Row(
                   children: [
                     AppLoginButton(
-                      imageIcon: const AssetImage("assets/images/google.png"),
+                      imageIcon: AssetImage("assets/images/google.png"),
                       textButton: "Google",
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 16,
                     ),
                     AppLoginButton(
-                      imageIcon: const AssetImage("assets/images/facebook.png"),
+                      imageIcon: AssetImage("assets/images/facebook.png"),
                       textButton: "Facebook",
                     )
                   ],

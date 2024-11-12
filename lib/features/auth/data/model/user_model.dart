@@ -1,16 +1,14 @@
+import 'package:basic_flutter/core/common/entities/user_entity.dart';
 
-import 'package:basic_flutter/core/common/entities/user.dart';
-
-class UserModel extends User{
-  UserModel(
-      {required super.username,
-      required super.email,
-      required super.birthDate,
-      required super.address});
+class UserModel extends UserEntity {
+  UserModel({
+    super.user,
+    super.session,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-      username: json['username'] ?? "",
-      email: json['email'] ?? "",
-      birthDate: DateTime.parse(json['birthDate'] ?? "2012-02-27"),
-      address: json['address'] ?? "");
+        user: json["user"] == null ? null : User.fromJson(json["user"]),
+        session:
+            json["session"] == null ? null : Session.fromJson(json["session"]),
+      );
 }

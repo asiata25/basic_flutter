@@ -17,7 +17,6 @@ class AuthField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // FIXME: usage of const for final propherty
         Text(labelText),
         const SizedBox(
           height: 8,
